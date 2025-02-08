@@ -1,0 +1,65 @@
+type Global @entity {
+  id: ID! # The global state ID (e.g., the public key of the global account)
+  initialized: Boolean!
+  authority: String! 
+  feeRecipient: String! 
+  initialVirtualTokenReserves: BigInt!
+  initialVirtualSolReserves: BigInt!
+  initialRealTokenReserves: BigInt!
+  tokenTotalSupply: BigInt!
+  feeBasisPoints: BigInt!
+}
+
+type BondingCurve @entity {
+  id: ID! # The bonding curve ID (e.g., the public key of the bonding curve account)
+  mint: String! 
+  virtualTokenReserves: BigInt!
+  virtualSolReserves: BigInt!
+  realTokenReserves: BigInt!
+  realSolReserves: BigInt!
+  tokenTotalSupply: BigInt!
+  complete: Boolean!
+}
+
+type CreateEvent @entity {
+  id: ID! # The event ID (e.g., transaction hash + log index)
+  name: String!
+  symbol: String!
+  uri: String!
+  mint: String! 
+  bondingCurve: String!
+  user: String! 
+  timestamp: BigInt!
+}
+
+type TradeEvent @entity {
+  id: ID! 
+  mint: String!
+  solAmount: BigInt!
+  tokenAmount: BigInt!
+  isBuy: Boolean! 
+  user: String! 
+  timestamp: BigInt!
+  virtualSolReserves: BigInt!
+  virtualTokenReserves: BigInt!
+  realSolReserves: BigInt!
+  realTokenReserves: BigInt!
+}
+
+type CompleteEvent @entity {
+  id: ID! # The event ID (e.g., transaction hash + log index)
+  user: String! 
+  mint: String! 
+  bondingCurve: String!
+  timestamp: BigInt!
+}
+
+type SetParamsEvent @entity {
+  id: ID! # The event ID (e.g., transaction hash + log index)
+  feeRecipient: String! 
+  initialVirtualTokenReserves: BigInt!
+  initialVirtualSolReserves: BigInt!
+  initialRealTokenReserves: BigInt!
+  tokenTotalSupply: BigInt!
+  feeBasisPoints: BigInt!
+}
