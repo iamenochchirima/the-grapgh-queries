@@ -16,7 +16,7 @@ export function handleTriggers(bytes: Uint8Array): void {
   // Process CreateEvent
   for (let i = 0; i < input.createEventList.length; i++) {
     const createEvent = input.createEventList[i];
-    const eventId = `${createEvent.mint.toString()}-${i}`;
+    const eventId = `${createEvent.mint.toString()}`;
 
     let entity = new CreateEvent(eventId);
     entity.name = createEvent.name;

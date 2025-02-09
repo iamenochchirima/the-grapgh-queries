@@ -7,7 +7,7 @@ schema:
 dataSources:
   - kind: substreams
     name: pump_fun_substreams
-    network: solana-mainnet
+    network: solana-mainnet-beta
     source:
       package:
         moduleName: map_program_data

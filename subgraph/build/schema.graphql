@@ -11,7 +11,7 @@ type Global @entity {
 }
 
 type BondingCurve @entity {
-  id: ID! # The bonding curve ID (e.g., the public key of the bonding curve account)
+  id: ID!
   mint: String! 
   virtualTokenReserves: BigInt!
   virtualSolReserves: BigInt!
@@ -22,14 +22,13 @@ type BondingCurve @entity {
 }
 
 type CreateEvent @entity {
-  id: ID! # The event ID (e.g., transaction hash + log index)
+  id: ID! 
   name: String!
   symbol: String!
   uri: String!
   mint: String! 
   bondingCurve: String!
   user: String! 
-  timestamp: BigInt!
 }
 
 type TradeEvent @entity {
@@ -47,7 +46,7 @@ type TradeEvent @entity {
 }
 
 type CompleteEvent @entity {
-  id: ID! # The event ID (e.g., transaction hash + log index)
+  id: ID!
   user: String! 
   mint: String! 
   bondingCurve: String!
@@ -55,7 +54,7 @@ type CompleteEvent @entity {
 }
 
 type SetParamsEvent @entity {
-  id: ID! # The event ID (e.g., transaction hash + log index)
+  id: ID!
   feeRecipient: String! 
   initialVirtualTokenReserves: BigInt!
   initialVirtualSolReserves: BigInt!
