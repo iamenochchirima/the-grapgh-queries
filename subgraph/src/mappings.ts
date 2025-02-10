@@ -12,6 +12,8 @@ import { BigInt, log, Bytes } from "@graphprotocol/graph-ts";
 
 export function handleTriggers(bytes: Uint8Array): void {
   const input = Protobuf.decode<protoData>(bytes, protoData.decode);
+  const blockTimestamp = input.blockTime;
+  const blockHeight = input.blockHeight;
 
   // Process CreateEvent
   for (let i = 0; i < input.createEventList.length; i++) {
@@ -25,6 +27,8 @@ export function handleTriggers(bytes: Uint8Array): void {
     entity.mint = createEvent.mint;
     entity.bondingCurve = createEvent.bondingCurve;
     entity.user = createEvent.user;
+    entity.blockTimestamp = blockTimestamp;
+    entity.blockHeight = blockHeight;
     entity.save();
   }
 
@@ -44,6 +48,8 @@ export function handleTriggers(bytes: Uint8Array): void {
     entity.virtualTokenReserves = BigInt.fromU64(tradeEvent.virtualTokenReserves);
     entity.realSolReserves = BigInt.fromU64(tradeEvent.realSolReserves);
     entity.realTokenReserves = BigInt.fromU64(tradeEvent.realTokenReserves);
+    entity.blockTimestamp = blockTimestamp;
+    entity.blockHeight = blockHeight;
     entity.save();
   }
 
@@ -57,6 +63,8 @@ export function handleTriggers(bytes: Uint8Array): void {
     entity.mint = completeEvent.mint;
     entity.bondingCurve = completeEvent.bondingCurve;
     entity.timestamp = BigInt.fromI64(completeEvent.timestamp);
+    entity.blockTimestamp = blockTimestamp;
+    entity.blockHeight = blockHeight;
     entity.save();
   }
 
@@ -72,6 +80,8 @@ export function handleTriggers(bytes: Uint8Array): void {
     entity.initialRealTokenReserves = BigInt.fromU64(setParamsEvent.initialRealTokenReserves);
     entity.tokenTotalSupply = BigInt.fromU64(setParamsEvent.tokenTotalSupply);
     entity.feeBasisPoints = BigInt.fromU64(setParamsEvent.feeBasisPoints);
+    entity.blockTimestamp = blockTimestamp;
+    entity.blockHeight = blockHeight;
     entity.save();
   }
 }

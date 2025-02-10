@@ -406,6 +406,32 @@ export class CreateEvent extends Entity {
   set user(value: string) {
     this.set("user", Value.fromString(value));
   }
+
+  get blockHeight(): string {
+    let value = this.get("blockHeight");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockHeight(value: string) {
+    this.set("blockHeight", Value.fromString(value));
+  }
+
+  get blockTimestamp(): string {
+    let value = this.get("blockTimestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockTimestamp(value: string) {
+    this.set("blockTimestamp", Value.fromString(value));
+  }
 }
 
 export class TradeEvent extends Entity {
@@ -576,6 +602,32 @@ export class TradeEvent extends Entity {
   set realTokenReserves(value: BigInt) {
     this.set("realTokenReserves", Value.fromBigInt(value));
   }
+
+  get blockHeight(): string {
+    let value = this.get("blockHeight");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockHeight(value: string) {
+    this.set("blockHeight", Value.fromString(value));
+  }
+
+  get blockTimestamp(): string {
+    let value = this.get("blockTimestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockTimestamp(value: string) {
+    this.set("blockTimestamp", Value.fromString(value));
+  }
 }
 
 export class CompleteEvent extends Entity {
@@ -669,6 +721,32 @@ export class CompleteEvent extends Entity {
 
   set timestamp(value: BigInt) {
     this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get blockHeight(): string {
+    let value = this.get("blockHeight");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockHeight(value: string) {
+    this.set("blockHeight", Value.fromString(value));
+  }
+
+  get blockTimestamp(): string {
+    let value = this.get("blockTimestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockTimestamp(value: string) {
+    this.set("blockTimestamp", Value.fromString(value));
   }
 }
 
@@ -789,5 +867,31 @@ export class SetParamsEvent extends Entity {
 
   set feeBasisPoints(value: BigInt) {
     this.set("feeBasisPoints", Value.fromBigInt(value));
+  }
+
+  get blockHeight(): string {
+    let value = this.get("blockHeight");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockHeight(value: string) {
+    this.set("blockHeight", Value.fromString(value));
+  }
+
+  get blockTimestamp(): string {
+    let value = this.get("blockTimestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set blockTimestamp(value: string) {
+    this.set("blockTimestamp", Value.fromString(value));
   }
 }

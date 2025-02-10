@@ -11,6 +11,9 @@ message Data {
     repeated Create create_list = 6;
     repeated Buy buy_list = 7;
     repeated Sell sell_list = 8;
+
+     string block_time = 9;
+    string block_height = 10;
 }
 message CreateEvent {
       string name = 1;

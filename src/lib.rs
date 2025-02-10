@@ -22,6 +22,8 @@ const PROGRAM_ID: &str = "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P";
 
 #[substreams::handlers::map]
 fn map_program_data(blk: Block) -> Data {
+    let block_timestamp = &blk.block_time;
+    let blockheight = &blk.block_height;
     let mut create_event_list: Vec<CreateEvent> = Vec::new();
     let mut trade_event_list: Vec<TradeEvent> = Vec::new();
     let mut complete_event_list: Vec<CompleteEvent> = Vec::new();
@@ -46,15 +48,17 @@ fn map_program_data(blk: Block) -> Data {
                 context.data_logs.iter().for_each(|data| {
                     if let Ok(decoded) = BASE64_STANDARD.decode(data) {
                         let slice_u8: &mut &[u8] = &mut &decoded[..];
-                        let slice_discriminator: [u8; 8] =
-                            slice_u8[0..8].try_into().expect("error");
+                        let slice_discriminator: [u8; 8] = slice_u8[0..8]
+                            .try_into()
+                            .expect("error");
 
                         match slice_discriminator {
                             idl::idl::program::events::CreateEvent::DISCRIMINATOR => {
-                                if let Ok(event) =
-                                    idl::idl::program::events::CreateEvent::deserialize(
-                                        &mut &slice_u8[8..],
-                                    )
+                                if
+                                    let Ok(event) =
+                                        idl::idl::program::events::CreateEvent::deserialize(
+                                            &mut &slice_u8[8..]
+                                        )
                                 {
                                     create_event_list.push(CreateEvent {
                                         name: event.name,
@@ -67,10 +71,11 @@ fn map_program_data(blk: Block) -> Data {
                                 }
                             }
                             idl::idl::program::events::TradeEvent::DISCRIMINATOR => {
-                                if let Ok(event) =
-                                    idl::idl::program::events::TradeEvent::deserialize(
-                                        &mut &slice_u8[8..],
-                                    )
+                                if
+                                    let Ok(event) =
+                                        idl::idl::program::events::TradeEvent::deserialize(
+                                            &mut &slice_u8[8..]
+                                        )
                                 {
                                     trade_event_list.push(TradeEvent {
                                         mint: event.mint.to_string(),
@@ -87,10 +92,11 @@ fn map_program_data(blk: Block) -> Data {
                                 }
                             }
                             idl::idl::program::events::CompleteEvent::DISCRIMINATOR => {
-                                if let Ok(event) =
-                                    idl::idl::program::events::CompleteEvent::deserialize(
-                                        &mut &slice_u8[8..],
-                                    )
+                                if
+                                    let Ok(event) =
+                                        idl::idl::program::events::CompleteEvent::deserialize(
+                                            &mut &slice_u8[8..]
+                                        )
                                 {
                                     complete_event_list.push(CompleteEvent {
                                         user: event.user.to_string(),
@@ -101,10 +107,11 @@ fn map_program_data(blk: Block) -> Data {
                                 }
                             }
                             idl::idl::program::events::SetParamsEvent::DISCRIMINATOR => {
-                                if let Ok(event) =
-                                    idl::idl::program::events::SetParamsEvent::deserialize(
-                                        &mut &slice_u8[8..],
-                                    )
+                                if
+                                    let Ok(event) =
+                                        idl::idl::program::events::SetParamsEvent::deserialize(
+                                            &mut &slice_u8[8..]
+                                        )
                                 {
                                     set_params_event_list.push(SetParamsEvent {
                                         fee_recipient: event.fee_recipient.to_string(),
@@ -120,58 +127,80 @@ fn map_program_data(blk: Block) -> Data {
                         }
                     }
                 });
-            });// ------------- INSTRUCTIONS -------------
+            });
+
+        // ------------- INSTRUCTIONS -------------
         transaction
-        .walk_instructions()
-        .into_iter()
-        .filter(|inst| inst.program_id().to_string() == PROGRAM_ID)
-        .for_each(|inst| {
-            let slice_u8: &[u8] = &inst.data()[..];if slice_u8[0..8] == idl::idl::program::client::args::SetParams::DISCRIMINATOR {
-                if let Ok(instruction) =
-                    idl::idl::program::client::args::SetParams::deserialize(&mut &slice_u8[8..])
-                {
-                    set_params_list.push(SetParams {
-                        fee_recipient: instruction.fee_recipient.to_string(),
-                        initial_virtual_token_reserves: instruction.initial_virtual_token_reserves,
-                        initial_virtual_sol_reserves: instruction.initial_virtual_sol_reserves,
-                        initial_real_token_reserves: instruction.initial_real_token_reserves,
-                        token_total_supply: instruction.token_total_supply,
-                        fee_basis_points: instruction.fee_basis_points,
-                    });
+            .walk_instructions()
+            .into_iter()
+            .filter(|inst| inst.program_id().to_string() == PROGRAM_ID)
+            .for_each(|inst| {
+                let slice_u8: &[u8] = &inst.data()[..];
+                if slice_u8[0..8] == idl::idl::program::client::args::SetParams::DISCRIMINATOR {
+                    if
+                        let Ok(instruction) =
+                            idl::idl::program::client::args::SetParams::deserialize(
+                                &mut &slice_u8[8..]
+                            )
+                    {
+                        set_params_list.push(SetParams {
+                            fee_recipient: instruction.fee_recipient.to_string(),
+                            initial_virtual_token_reserves: instruction.initial_virtual_token_reserves,
+                            initial_virtual_sol_reserves: instruction.initial_virtual_sol_reserves,
+                            initial_real_token_reserves: instruction.initial_real_token_reserves,
+                            token_total_supply: instruction.token_total_supply,
+                            fee_basis_points: instruction.fee_basis_points,
+                        });
+                    }
                 }
-            }if slice_u8[0..8] == idl::idl::program::client::args::Create::DISCRIMINATOR {
-                if let Ok(instruction) =
-                    idl::idl::program::client::args::Create::deserialize(&mut &slice_u8[8..])
-                {
-                    create_list.push(Create {
-                        name: instruction.name,
-                        symbol: instruction.symbol,
-                        uri: instruction.uri,
-                    });
+                if slice_u8[0..8] == idl::idl::program::client::args::Create::DISCRIMINATOR {
+                    if
+                        let Ok(instruction) = idl::idl::program::client::args::Create::deserialize(
+                            &mut &slice_u8[8..]
+                        )
+                    {
+                        create_list.push(Create {
+                            name: instruction.name,
+                            symbol: instruction.symbol,
+                            uri: instruction.uri,
+                        });
+                    }
                 }
-            }if slice_u8[0..8] == idl::idl::program::client::args::Buy::DISCRIMINATOR {
-                if let Ok(instruction) =
-                    idl::idl::program::client::args::Buy::deserialize(&mut &slice_u8[8..])
-                {
-                    buy_list.push(Buy {
-                        amount: instruction.amount,
-                        max_sol_cost: instruction.max_sol_cost,
-                    });
+                if slice_u8[0..8] == idl::idl::program::client::args::Buy::DISCRIMINATOR {
+                    if
+                        let Ok(instruction) = idl::idl::program::client::args::Buy::deserialize(
+                            &mut &slice_u8[8..]
+                        )
+                    {
+                        buy_list.push(Buy {
+                            amount: instruction.amount,
+                            max_sol_cost: instruction.max_sol_cost,
+                        });
+                    }
                 }
-            }if slice_u8[0..8] == idl::idl::program::client::args::Sell::DISCRIMINATOR {
-                if let Ok(instruction) =
-                    idl::idl::program::client::args::Sell::deserialize(&mut &slice_u8[8..])
-                {
-                    sell_list.push(Sell {
-                        amount: instruction.amount,
-                        min_sol_output: instruction.min_sol_output,
-                    });
+                if slice_u8[0..8] == idl::idl::program::client::args::Sell::DISCRIMINATOR {
+                    if
+                        let Ok(instruction) = idl::idl::program::client::args::Sell::deserialize(
+                            &mut &slice_u8[8..]
+                        )
+                    {
+                        sell_list.push(Sell {
+                            amount: instruction.amount,
+                            min_sol_output: instruction.min_sol_output,
+                        });
+                    }
                 }
-            }
-        });
+            });
     });
+    let block_time = match block_timestamp {
+        Some(time) => time.timestamp.to_string(),
+        None => "".to_string(),
+    };
 
-
+    let block_height = match blockheight {
+        Some(height) => height.block_height.to_string(),
+        None => "".to_string(),
+    };   
     Data {
         create_event_list,
         trade_event_list,
@@ -181,6 +210,7 @@ fn map_program_data(blk: Block) -> Data {
         create_list,
         buy_list,
         sell_list,
+        block_time,
+        block_height,
     }
 }
-

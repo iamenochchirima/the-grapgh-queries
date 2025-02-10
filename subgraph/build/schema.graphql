@@ -29,6 +29,8 @@ type CreateEvent @entity {
   mint: String! 
   bondingCurve: String!
   user: String! 
+  blockHeight: String!
+  blockTimestamp: String!
 }
 
 type TradeEvent @entity {
@@ -43,6 +45,8 @@ type TradeEvent @entity {
   virtualTokenReserves: BigInt!
   realSolReserves: BigInt!
   realTokenReserves: BigInt!
+  blockHeight: String!
+  blockTimestamp: String!
 }
 
 type CompleteEvent @entity {
@@ -51,6 +55,8 @@ type CompleteEvent @entity {
   mint: String! 
   bondingCurve: String!
   timestamp: BigInt!
+  blockHeight: String!
+  blockTimestamp: String!
 }
 
 type SetParamsEvent @entity {
@@ -61,4 +67,6 @@ type SetParamsEvent @entity {
   initialRealTokenReserves: BigInt!
   tokenTotalSupply: BigInt!
   feeBasisPoints: BigInt!
+  blockHeight: String!
+  blockTimestamp: String!
 }

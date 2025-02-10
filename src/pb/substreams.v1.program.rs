@@ -18,6 +18,10 @@ pub struct Data {
     pub buy_list: ::prost::alloc::vec::Vec<Buy>,
     #[prost(message, repeated, tag="8")]
     pub sell_list: ::prost::alloc::vec::Vec<Sell>,
+    #[prost(string, tag="9")]
+    pub block_time: ::prost::alloc::string::String,
+    #[prost(string, tag="10")]
+    pub block_height: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

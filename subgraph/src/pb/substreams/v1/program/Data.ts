@@ -77,6 +77,12 @@ export class Data {
       Sell.encode(sellList[i], writer);
       writer.ldelim();
     }
+
+    writer.uint32(74);
+    writer.string(message.blockTime);
+
+    writer.uint32(82);
+    writer.string(message.blockHeight);
   }
 
   static decode(reader: Reader, length: i32): Data {
@@ -126,6 +132,14 @@ export class Data {
           message.sellList.push(Sell.decode(reader, reader.uint32()));
           break;
 
+        case 9:
+          message.blockTime = reader.string();
+          break;
+
+        case 10:
+          message.blockHeight = reader.string();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -143,6 +157,8 @@ export class Data {
   createList: Array<Create>;
   buyList: Array<Buy>;
   sellList: Array<Sell>;
+  blockTime: string;
+  blockHeight: string;
 
   constructor(
     createEventList: Array<CreateEvent> = [],
@@ -152,7 +168,9 @@ export class Data {
     setParamsList: Array<SetParams> = [],
     createList: Array<Create> = [],
     buyList: Array<Buy> = [],
-    sellList: Array<Sell> = []
+    sellList: Array<Sell> = [],
+    blockTime: string = "",
+    blockHeight: string = ""
   ) {
     this.createEventList = createEventList;
     this.tradeEventList = tradeEventList;
@@ -162,5 +180,7 @@ export class Data {
     this.createList = createList;
     this.buyList = buyList;
     this.sellList = sellList;
+    this.blockTime = blockTime;
+    this.blockHeight = blockHeight;
   }
 }
