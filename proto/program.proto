@@ -11,8 +11,7 @@ message Data {
     repeated Create create_list = 6;
     repeated Buy buy_list = 7;
     repeated Sell sell_list = 8;
-
-     string block_time = 9;
+    string block_time = 9;
     string block_height = 10;
 }
 message CreateEvent {
@@ -49,7 +48,6 @@ message SetParamsEvent {
       uint64 token_total_supply = 5;
       uint64 fee_basis_points = 6;
 }
-
 
 message SetParams {
       string fee_recipient = 1;
